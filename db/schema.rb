@@ -16,8 +16,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_18_000827) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.integer "event_type"
     t.boolean "editable"
     t.boolean "all_day"
     t.text "color_hex"
