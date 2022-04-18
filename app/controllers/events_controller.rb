@@ -2,8 +2,8 @@ class EventsController < ApplicationController
   def create
     event = Event.new(
       title: event_params[:title],
-      start_at: event_params[:start_at],
-      end_at: event_params[:end_at],
+      start: event_params[:start],
+      end: event_params[:end],
       editable: event_params[:editable],
       all_day: event_params[:all_day],
       color_hex: event_params[:color_hex],
@@ -22,8 +22,8 @@ class EventsController < ApplicationController
 
     if event.update(
         title: event_params[:title],
-        start_at: event_params[:start_at],
-        end_at: event_params[:end_at],
+        start: event_params[:start],
+        end: event_params[:end],
         editable: event_params[:editable],
         all_day: event_params[:all_day],
         color_hex: event_params[:color_hex],
@@ -41,6 +41,11 @@ class EventsController < ApplicationController
 
   def index
     render json: { events: Event.all }
+  end
+
+  def destroy
+    Event.find(params[:id]).destroy
+    head :ok
   end
 
   private def event_params
