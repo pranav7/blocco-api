@@ -6,7 +6,7 @@ class EventsController < ApplicationController
       end: event_params[:end],
       editable: event_params[:editable],
       all_day: event_params[:all_day],
-      color_hex: event_params[:color_hex],
+      color: event_params[:color],
       event_type: event_params[:event_type],
     )
 
@@ -26,7 +26,7 @@ class EventsController < ApplicationController
         end: event_params[:end],
         editable: event_params[:editable],
         all_day: event_params[:all_day],
-        color_hex: event_params[:color_hex],
+        color: event_params[:color],
         event_type: event_params[:event_type],
       )
       render json: event
