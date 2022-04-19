@@ -2,8 +2,11 @@ module Calendar
   class Importer
 
     def sync_todays_events
+      time_min = params[:time_min] || DateTime.now.beginning_of_day.rfc3339
+      tim_max = params[:time_max] || DateTime.now.end_of_day.rfc3339
+
       calendar_client
-        .list_events("primary", single_events: true, time_min: DateTime.now.beginning_of_day.rfc3339, time_max: DateTime.now.end_of_day.rfc3339)
+        .list_events("primary", single_events: true, time_min: time_min, time_max: time_max)
         .items.each do |event|
           next if event.status == "cancelled"
 
