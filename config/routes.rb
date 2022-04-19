@@ -3,5 +3,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  put "/google_calendar/sync_todays_events" => "google_calendar#sync_todays_events"
+  get "/authorize" => "google_calendar#authorize"
+  get "/oauth2callback" => "google_calendar#oauth_callback"
+
   resources :events
 end
