@@ -1,14 +1,15 @@
 class Event < ApplicationRecord
-  serialize :days_of_week, Array
-
-  enum event_category: {
-    default: 0,
-    focus: 1,
-    meeting: 2,
-  }
+  has_one :recurring_event
 
   enum event_type: {
-    once: 0,
-    recurring: 1,
+    default: 0,
+    focusTime: 1,
+    outOfOffice: 2,
+  }
+
+  enum status: {
+    confirmed: 0,
+    tentative: 1,
+    cancelled: 2,
   }
 end
