@@ -39,7 +39,7 @@ module GoogleApi
         url = authorizer.get_authorization_url(base_url: "http://localhost:3000")
         puts "⚠️ Open the following URL in the browser and call call `GoogleApi::Calendar.create_credentials(code)` with the " \
             "resulting code after authorization:\n" + url
-        return { succes: false, redirect_url: url }
+        return { succes: false, redirect_url: url, credentials: nil }
       end
 
       puts "✅ Authorized!"
@@ -55,7 +55,7 @@ module GoogleApi
     def calendar_client
       service = Google::Apis::CalendarV3::CalendarService.new
       service.client_options.application_name = APPLICATION_NAME
-      service.authorization = authorize
+      service.authorization = authorize[:credentials]
 
       service
     end

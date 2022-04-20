@@ -1,7 +1,7 @@
 class GoogleCalendarController < ApplicationController
-  def sync_todays_events
+  def sync_events
     importer = Calendar::Importer.new
-    importer.sync_todays_events
+    importer.sync_events(time_min: params[:time_min], time_max: params[:time_max])
 
     head :ok
   end

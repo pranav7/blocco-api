@@ -5,6 +5,7 @@ class Event < ApplicationRecord
     default: 0,
     focusTime: 1,
     outOfOffice: 2,
+    break: 3,
   }
 
   enum status: {
