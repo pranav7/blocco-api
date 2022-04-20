@@ -15,9 +15,9 @@ class EventsController < ApplicationController
     )
 
     if event.save
-      render json: { event: event }
+      render json: { event: ::EventSerializer.render_as_json(event) }
     else
-      render json: event.errors
+      render json: { errors: event.errors }
     end
   end
 
@@ -37,18 +37,21 @@ class EventsController < ApplicationController
         text_color: event_params[:text_color],
         notes: event_params[:notes],
       )
-      render json: event
+
+      render json: { event: ::EventSerializer.render_as_json(event) }
     else
       render json: event.errors
     end
   end
 
   def show
-    render json: { event: Event.find(params[:id]) }
+    event = Event.find(params[:id])
+    render json: { event: ::EventSerializer.render_as_json(event) }
   end
 
   def index
-    render json: { events: Event.all }
+    events = Event.all
+    render json: { event: ::EventSerializer.render_as_json(events) }
   end
 
   def destroy

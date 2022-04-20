@@ -31,7 +31,7 @@ module Calendar
 
     private def build_notes_from_event(event)
       organizer_by = organizer_details(event)
-      notes = "Organized by: #{organizer_by}\n\n" if organizer_by.present?
+      notes = "Organised by: #{organizer_by}\n\n" if organizer_by.present?
       notes << "#{sanitize(event.description, tags: [])}"
 
       notes

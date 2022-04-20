@@ -13,4 +13,8 @@ class Event < ApplicationRecord
     tentative: 1,
     cancelled: 2,
   }
+
+  def external?
+    google_event_id.present?
+  end
 end
