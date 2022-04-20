@@ -20,7 +20,9 @@ module Calendar
           local_event.background_color = "#ffcdb3"
           local_event.border_color = "#fe7032"
           local_event.text_color = "#ca3800"
-          local_event.notes = build_notes_from_event(event)
+          local_event.meeting_link = get_meeting_link(event)
+          local_event.creator = get_creator_details(event)
+          local_event.notes = "#{sanitize(event.description, tags: [])}"
           local_event.save
         end
     end
@@ -29,20 +31,22 @@ module Calendar
       @calendar_client ||= GoogleApi::Calendar.new.calendar_client
     end
 
-    private def build_notes_from_event(event)
-      organizer_by = organizer_details(event)
-      notes = "Organised by: #{organizer_by}\n\n" if organizer_by.present?
-      notes << "#{sanitize(event.description, tags: [])}"
-
-      notes
-    end
-
-    private def organizer_details(event)
+    private def get_creator_details(event)
       details = ""
-      details << "#{event.organizer.display_name} " if event.organizer.try(:display_name).present?
-      details << "(#{event.organizer.email})" if event.organizer.try(:email).present?
+      if event.organizer.try(:display_name).present?
+        details << "#{event.organizer.display_name} "
+        details << "(#{event.organizer.email})" if event.organizer.try(:email).present?
+      else
+        details << "#{event.organizer.email}" if event.organizer.try(:email).present?
+      end
 
       details
+    end
+
+    private def get_meeting_link(event)
+      return if event.conference_data.nil?
+
+      event.conference_data.entry_points.select { |ep| ep.entry_point_type == "video" }.first.label
     end
 
   end
