@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  serialize :attendees, Array
+
   has_one :recurring_event
 
   enum event_type: {
