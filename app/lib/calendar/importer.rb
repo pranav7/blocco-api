@@ -1,6 +1,5 @@
 module Calendar
   class Importer
-    include ActionView::Helpers::SanitizeHelper
 
     def sync_events(time_min:, time_max:)
       time_min = time_min || DateTime.now.beginning_of_day.rfc3339
@@ -22,7 +21,8 @@ module Calendar
           local_event.text_color = "#ca3800"
           local_event.meeting_link = get_meeting_link(event)
           local_event.creator = get_creator_details(event)
-          local_event.notes = "#{sanitize(event.description, tags: [])}"
+          local_event.attendees = get_attenndees(event)
+          local_event.notes = "#{ActionController::Base.helpers.strip_tags(event.description)}"
           local_event.save
         end
     end
@@ -47,6 +47,10 @@ module Calendar
       return if event.conference_data.nil?
 
       event.conference_data.entry_points.select { |ep| ep.entry_point_type == "video" }.first.label
+    end
+
+    private def get_attenndees(event)
+      event.attendees.map(&:display_name).compact.uniq
     end
 
   end
