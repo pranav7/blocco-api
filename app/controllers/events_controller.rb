@@ -25,18 +25,18 @@ class EventsController < ApplicationController
     event = Event.find(params[:id])
 
     if event.update(
-        title: event_params[:title],
-        start: event_params[:start],
-        end: event_params[:end],
-        editable: event_params[:editable],
-        all_day: event_params[:all_day],
-        color: event_params[:color],
-        event_type: event_params[:event_type],
-        background_color: event_params[:background_color],
-        border_color: event_params[:border_color],
-        text_color: event_params[:text_color],
-        notes: event_params[:notes],
-      )
+      title: event_params[:title],
+      start: event_params[:start],
+      end: event_params[:end],
+      editable: event_params[:editable],
+      all_day: event_params[:all_day],
+      color: event_params[:color],
+      event_type: event_params[:event_type],
+      background_color: event_params[:background_color],
+      border_color: event_params[:border_color],
+      text_color: event_params[:text_color],
+      notes: event_params[:notes]
+    )
 
       render json: ::EventSerializer.render_as_json(event, root: :event)
     else
@@ -59,7 +59,9 @@ class EventsController < ApplicationController
     head :ok
   end
 
-  private def event_params
+  private
+
+  def event_params
     params[:event]
   end
 end
