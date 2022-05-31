@@ -46,7 +46,7 @@ module Calendar
     private def get_meeting_link(event)
       return if event.conference_data.nil?
 
-      event.conference_data.entry_points.select { |ep| ep.entry_point_type == "video" }.first.label
+      event.conference_data.entry_points.select { |ep| ep.entry_point_type == "video" }.first&.label
     end
 
     private def get_attenndees(event)
