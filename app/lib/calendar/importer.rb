@@ -2,8 +2,8 @@ module Calendar
   class Importer
 
     def sync_events(time_min:, time_max:)
-      time_min = time_min || DateTime.now.beginning_of_day.rfc3339
-      time_max = time_max || DateTime.now.end_of_day.rfc3339
+      time_min ||= DateTime.now.beginning_of_day.rfc3339
+      time_max ||= DateTime.now.end_of_day.rfc3339
 
       calendar_client
         .list_events("primary", single_events: true, time_min: time_min, time_max: time_max)
@@ -27,12 +27,14 @@ module Calendar
         end
     end
 
-    private def calendar_client
+    private
+
+    def calendar_client
       @calendar_client ||= GoogleApi::Calendar.new.calendar_client
     end
 
-    private def get_creator_details(event)
-      details = ""
+    def get_creator_details(event)
+      details = ''
       if event.organizer.try(:display_name).present?
         details << "#{event.organizer.display_name} "
         details << "(#{event.organizer.email})" if event.organizer.try(:email).present?
@@ -43,13 +45,13 @@ module Calendar
       details
     end
 
-    private def get_meeting_link(event)
+    def get_meeting_link(event)
       return if event.conference_data.nil?
 
       event.conference_data.entry_points.select { |ep| ep.entry_point_type == "video" }.first&.label
     end
 
-    private def get_attenndees(event)
+    def get_attenndees(event)
       event.attendees.map(&:display_name).compact.uniq
     end
 
