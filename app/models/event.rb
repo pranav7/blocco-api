@@ -8,6 +8,7 @@ class Event < ApplicationRecord
     focusTime: 1,
     outOfOffice: 2,
     break: 3,
+    meeting: 4,
   }
 
   enum status: {
