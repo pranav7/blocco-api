@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get "/oauth2callback" => "google_calendar#oauth_callback"
 
   resources :events
+  resources :shutdown_status, only: [:create, :update, :show]
 end
