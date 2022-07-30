@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_15_122540) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_29_125814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,9 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_15_122540) do
   end
 
   create_table "shutdown_statuses", force: :cascade do |t|
-    t.integer "status", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean "complete", default: false
+    t.date "created_at", null: false
   end
 
   create_table "weekly_notes", force: :cascade do |t|
@@ -60,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_15_122540) do
     t.date "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "blocks", default: "[]"
     t.index ["start_date", "end_date"], name: "index_weekly_notes_on_start_date_and_end_date", unique: true
   end
 
