@@ -15,7 +15,11 @@ class WeeklyNotesController < ApplicationController
 
   # POST /weekly_notes
   def create
-    @weekly_note = WeeklyNote.new(weekly_note_params)
+    @weekly_note = WeeklyNote.new(
+      start_date: params[:weekly_note][:start_date],
+      end_date: params[:weekly_note][:end_date],
+      blocks: params[:weekly_note][:blocks] || [{ type: 'paragraph', data: { text: "" } }]
+    )
 
     if @weekly_note.save
       render json: ::WeeklyNoteSerializer.render_as_json(@weekly_note, root: :weekly_note), status: :created, location: @weekly_note
@@ -26,7 +30,11 @@ class WeeklyNotesController < ApplicationController
 
   # PATCH/PUT /weekly_notes/1
   def update
-    if @weekly_note.update(weekly_note_params)
+    if @weekly_note.update(
+      start_date: params[:weekly_note][:start_date],
+      end_date: params[:weekly_note][:end_date],
+      blocks: params[:weekly_note][:blocks]
+    )
       render json: ::WeeklyNoteSerializer.render_as_json(@weekly_note, root: :weekly_note)
     else
       render json: @weekly_note.errors, status: :unprocessable_entity
@@ -47,6 +55,9 @@ class WeeklyNotesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def weekly_note_params
-    params.require(:weekly_note).permit(:notes, :start_date, :end_date)
+    # Allow all options for blocks, which is a JSON serialized column
+    # Read more on: https://stackoverflow.com/a/18276907
+    all_blocks = params.require(:weekly_note)[:blocks].try(:permit!)
+    params.require(:weekly_note).permit(:notes, :start_date, :end_date).merge(blocks: all_blocks)
   end
 end
