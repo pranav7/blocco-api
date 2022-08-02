@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_29_125814) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_02_170744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,7 +60,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_125814) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "blocks", default: "[]"
+    t.integer "week_number"
+    t.integer "week_year"
     t.index ["start_date", "end_date"], name: "index_weekly_notes_on_start_date_and_end_date", unique: true
+    t.index ["week_year", "week_number"], name: "index_weekly_notes_on_week_year_and_week_number", unique: true
   end
 
   add_foreign_key "recurring_events", "events"
