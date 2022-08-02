@@ -3,7 +3,7 @@ class WeeklyNotesController < ApplicationController
 
   # GET /weekly_notes
   def index
-    @weekly_notes = WeeklyNote.where(start_date: params[:start_date], end_date: params[:end_date])
+    @weekly_notes = WeeklyNote.where(week_year: params[:week_year], week_number: params[:week_number])
 
     render json: ::WeeklyNoteSerializer.render_as_json(@weekly_notes, root: :weekly_notes)
   end
@@ -18,6 +18,8 @@ class WeeklyNotesController < ApplicationController
     @weekly_note = WeeklyNote.new(
       start_date: params[:weekly_note][:start_date],
       end_date: params[:weekly_note][:end_date],
+      week_number: params[:weekly_note][:week_number],
+      week_year: params[:weekly_note][:week_year],
       blocks: params[:weekly_note][:blocks] || [{ type: 'paragraph', data: { text: "" } }]
     )
 
@@ -33,6 +35,8 @@ class WeeklyNotesController < ApplicationController
     if @weekly_note.update(
       start_date: params[:weekly_note][:start_date],
       end_date: params[:weekly_note][:end_date],
+      week_number: params[:weekly_note][:week_number],
+      week_year: params[:weekly_note][:week_year],
       blocks: params[:weekly_note][:blocks]
     )
       render json: ::WeeklyNoteSerializer.render_as_json(@weekly_note, root: :weekly_note)
@@ -51,13 +55,5 @@ class WeeklyNotesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_weekly_note
     @weekly_note = WeeklyNote.find(params[:id])
-  end
-
-  # Only allow a list of trusted parameters through.
-  def weekly_note_params
-    # Allow all options for blocks, which is a JSON serialized column
-    # Read more on: https://stackoverflow.com/a/18276907
-    all_blocks = params.require(:weekly_note)[:blocks].try(:permit!)
-    params.require(:weekly_note).permit(:notes, :start_date, :end_date).merge(blocks: all_blocks)
   end
 end
