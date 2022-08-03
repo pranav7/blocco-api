@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :weekly_notes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -8,6 +7,7 @@ Rails.application.routes.draw do
   get "/authorize" => "google_calendar#authorize"
   get "/oauth2callback" => "google_calendar#oauth_callback"
 
+  resources :weekly_notes
   resources :events
-  resources :shutdown_status, only: [:create, :update, :show]
+  resources :shutdown_statuses, only: [:create, :update, :show, :index]
 end

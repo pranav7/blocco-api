@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_02_170744) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_02_172705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_02_170744) do
   create_table "shutdown_statuses", force: :cascade do |t|
     t.boolean "complete", default: false
     t.date "created_at", null: false
+    t.integer "week_number"
+    t.integer "week_year"
+    t.integer "week_day"
+    t.index ["week_number", "week_year", "week_day"], name: "idx_shutdown_statuses_on_day_and_week", unique: true
   end
 
   create_table "weekly_notes", force: :cascade do |t|
