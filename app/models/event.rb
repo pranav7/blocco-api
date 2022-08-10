@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   enum event_type: {
     default: 0,
     focusTime: 1,
-    out_of_office: 2,
+    outOfOffice: 2,
     break: 3,
     meeting: 4,
   }
