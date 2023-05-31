@@ -1,4 +1,4 @@
 class WeeklyNote < ApplicationRecord
-  validates :start_date, :end_date, presence: true
+  validates :week_number, :week_year, presence: true
   serialize :blocks, JSON
 end

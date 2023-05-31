@@ -16,8 +16,6 @@ class WeeklyNotesController < ApplicationController
   # POST /weekly_notes
   def create
     @weekly_note = WeeklyNote.new(
-      start_date: params[:weekly_note][:start_date],
-      end_date: params[:weekly_note][:end_date],
       week_number: params[:weekly_note][:week_number],
       week_year: params[:weekly_note][:week_year],
       blocks: params[:weekly_note][:blocks] || [{ type: 'paragraph', data: { text: "" } }]
@@ -33,8 +31,6 @@ class WeeklyNotesController < ApplicationController
   # PATCH/PUT /weekly_notes/1
   def update
     if @weekly_note.update(
-      start_date: params[:weekly_note][:start_date],
-      end_date: params[:weekly_note][:end_date],
       week_number: params[:weekly_note][:week_number],
       week_year: params[:weekly_note][:week_year],
       blocks: params[:weekly_note][:blocks]

@@ -52,7 +52,7 @@ module Calendar
     end
 
     def get_attenndees(event)
-      event.attendees.map(&:display_name).compact.uniq
+      event.attendees&.map(&:display_name)&.compact&.uniq || []
     end
 
   end
