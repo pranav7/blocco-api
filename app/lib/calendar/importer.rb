@@ -39,7 +39,7 @@ module Calendar
         details << "#{event.organizer.display_name} "
         details << "(#{event.organizer.email})" if event.organizer.try(:email).present?
       else
-        details << "#{event.organizer.email}" if event.organizer.try(:email).present?
+        details << event.organizer.email.to_s if event.organizer.try(:email).present?
       end
 
       details
@@ -48,7 +48,7 @@ module Calendar
     def get_meeting_link(event)
       return if event.conference_data.nil?
 
-      event.conference_data.entry_points.select { |ep| ep.entry_point_type == "video" }.first&.label
+      event.conference_data.entry_points.select { |ep| ep.entry_point_type == 'video' }.first&.label
     end
 
     def get_attenndees(event)
