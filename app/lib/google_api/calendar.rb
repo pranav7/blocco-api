@@ -11,7 +11,7 @@ module GoogleApi
     # The file token.yaml stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    TOKEN_PATH = "config/google_user_token.yml".freeze
+    TOKEN_PATH = "config/google_user_token.yml".freeze if Rails.env.development?
     SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
     attr_reader :authorizer, :token_store, :client_id, :user_id
