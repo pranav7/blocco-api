@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: blocco_api_production
-  username: blocco_api
+  username: BloccoAPI
   password: <%= ENV["BLOCCO_API_DATABASE_PASSWORD"] %>
