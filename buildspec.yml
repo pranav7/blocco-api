@@ -10,12 +10,6 @@ phases:
       - gem install bundler
       - bundle install
 
-  pre_build:
-    commands:
-      - echo "Running pre-build"
-      - bundle exec rails db:create
-      - bundle exec rails db:migrate
-
   build:
     commands:
       - echo "Running tests"
