@@ -13,6 +13,7 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-build"
+      - echo $RAILS_MASTER_KEY
       - bundle exec rails db:create db:migrate
 
   build:
