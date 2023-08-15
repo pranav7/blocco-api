@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: blocco_api_production
+  url: awseb-e-m3sdxwhd8f-stack-awsebrdsdatabase-fhtc8xddr6eh.cja0itnaqxbv.us-east-2.rds.amazonaws.com:5432
   username: BloccoAPI
   password: <%= ENV["BLOCCO_API_DATABASE_PASSWORD"] %>
