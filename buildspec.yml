@@ -13,7 +13,7 @@ phases:
   pre_build:
     commands:
       - echo "Running pre-build"
-      - bundle exec rake db:create db:migrate
+      - bundle exec rails db:create db:migrate
 
   build:
     commands:
