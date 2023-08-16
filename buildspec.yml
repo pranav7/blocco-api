@@ -3,10 +3,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      ruby: 3.2
+      ruby: 3.0.6
     commands:
       - echo "Installing dependencies"
-      - rbenv global 3.2.2
+      - rbenv global 3.0.6
       - gem install bundler
       - bundle install
 
