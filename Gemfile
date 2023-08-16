@@ -9,9 +9,6 @@ gem "rails", "~> 7.0.2", ">= 7.0.2.3"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
-# Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
-
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
@@ -43,6 +40,11 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "pry"
+
+  # Use the Puma web server [https://github.com/puma/puma]
+  # Only use this gem in dev, test. Why? https://stackoverflow.com/a/66201704
+  # tl;dr - ElasticBeanstalk uses Puma by default, so we don't need to specify it in production
+  gem 'puma', '~> 5.0'
 end
 
 group :development do
